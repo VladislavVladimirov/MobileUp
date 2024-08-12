@@ -11,12 +11,14 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import ru.test.mobileup.R
 import ru.test.mobileup.data.dto.Coin
 import ru.test.mobileup.presentation.screens.halfMargin
 import ru.test.mobileup.presentation.screens.margin
@@ -42,7 +44,7 @@ fun CoinListItem(
     ) {
         val (logo, name, shortName, price, change) = createRefs()
         AsyncImage(model = coin.image,
-            contentDescription = "Логотип",
+            contentDescription = stringResource(R.string.logo_description),
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(40.dp)

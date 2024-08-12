@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MobileUp</string>
+    <string name="logo_description">Логотип</string>
+    <string name="icon_description">Иконка</string>
 </resources>
