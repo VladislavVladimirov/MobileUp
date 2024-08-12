@@ -28,8 +28,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MobileUpTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
                     NavHost(navController = navController, startDestination = "MainScreen") {

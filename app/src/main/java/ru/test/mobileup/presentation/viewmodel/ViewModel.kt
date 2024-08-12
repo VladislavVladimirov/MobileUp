@@ -3,10 +3,10 @@ package ru.test.mobileup.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
-import androidx.lifecycle.viewModelScope
 import ru.test.mobileup.domain.interactor.GetCoinsVsRubUseCase
 import ru.test.mobileup.domain.interactor.GetCoinsVsUsdUseCase
 import ru.test.mobileup.domain.model.CoinModel
@@ -26,11 +26,16 @@ class ViewModel @Inject constructor(
     val state: LiveData<StateModel>
         get() = _state
 
+    init {
+        getCoinsVsUsd()
+    }
+
     fun getCoinsVsUsd() = viewModelScope.launch{
         try {
             _state.value = StateModel(loading = true)
             val list = getCoinsVsUsdUseCase.execute()
             _data.value = CoinModel(coins = list)
+            _state.value = StateModel(loading = false)
         } catch (e:Exception){
             _state.value = StateModel(error = true)
         }
@@ -40,9 +45,13 @@ class ViewModel @Inject constructor(
             _state.value = StateModel(loading = true)
             val list = getCoinsVsRubUseCase.execute()
             _data.value = CoinModel(coins = list)
+            _state.value = StateModel(loading = false)
         } catch (e:Exception){
             _state.value = StateModel(error = true)
         }
+    }
+    fun clear() {
+        _data.value = CoinModel()
     }
 
 }
