@@ -17,7 +17,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.test.mobileup.presentation.screens.CoinScreen
 import ru.test.mobileup.presentation.screens.MainScreen
 import ru.test.mobileup.presentation.ui.theme.MobileUpTheme
-import ru.test.mobileup.presentation.viewmodel.ViewModel
+import ru.test.mobileup.presentation.viewmodel.CoinsViewModel
+import ru.test.mobileup.presentation.viewmodel.DetailedCoinsViewModel
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -33,11 +34,11 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(navController = navController, startDestination = "MainScreen") {
                         composable("MainScreen") {
-                            val viewModel = hiltViewModel<ViewModel>()
+                            val viewModel = hiltViewModel<CoinsViewModel>()
                             MainScreen(viewModel, navController)
                         }
                         composable("MainScreen/{id}") { backStackEntry ->
-                            val viewModel = hiltViewModel<ViewModel>()
+                            val viewModel = hiltViewModel<DetailedCoinsViewModel>()
                             val id = backStackEntry.arguments?.getString("id")
                             CoinScreen(id, viewModel, navController)
                         }

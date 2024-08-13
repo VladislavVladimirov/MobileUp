@@ -47,4 +47,24 @@ object DataFormatter {
             input
         }
     }
+
+    fun extractLinks(text: String): Map<String, String> {
+        val pattern = """<a href="(.*?)">(.*?)</a>""".toRegex()
+        val matches = pattern.findAll(text)
+
+        val result = mutableMapOf<String, String>()
+        for (match in matches) {
+            val link = match.groupValues[1]
+            val title = match.groupValues[2]
+            result[title] = link
+        }
+
+        return result
+    }
+    fun removeLinks(input: String): String {
+        val regex = """<a href="[^"]+">([^<]+)</a>""".toRegex()
+        return regex.replace(input) { matchResult ->
+            matchResult.groups[1]?.value ?: ""
+        }
+    }
 }

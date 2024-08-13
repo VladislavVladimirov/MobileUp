@@ -13,7 +13,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -22,15 +21,16 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.test.mobileup.presentation.screens.doubleMargin
 import ru.test.mobileup.presentation.screens.margin
-import ru.test.mobileup.presentation.viewmodel.ViewModel
+import ru.test.mobileup.presentation.ui.theme.DarkGrey
+import ru.test.mobileup.presentation.viewmodel.CoinsViewModel
 
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @Composable
 fun TopBar(isUsdSelected: MutableState<Boolean>) {
     val padding = WindowInsets.statusBars.asPaddingValues()
-    val viewModel: ViewModel = viewModel()
-    Surface(shadowElevation = 6.dp) {
+    val viewModel: CoinsViewModel = viewModel()
+    Surface(shadowElevation = 3.dp) {
         ConstraintLayout(
             Modifier
                 .fillMaxWidth()
@@ -39,7 +39,7 @@ fun TopBar(isUsdSelected: MutableState<Boolean>) {
             val (title, chips) = createRefs()
             Text(
                 text = "Cписок криптовалют",
-                color = Color.DarkGray, fontWeight = FontWeight(500),
+                color = DarkGrey, fontWeight = FontWeight(500),
                 fontSize = 20.sp,
                 modifier = Modifier.constrainAs(title) {
                     top.linkTo(parent.top, margin)
@@ -60,7 +60,7 @@ fun TopBar(isUsdSelected: MutableState<Boolean>) {
                     selected = isUsdSelected.value,
                     onClick = {
                         isUsdSelected.value = true
-                        viewModel.clear()
+                        viewModel.clearList()
                         viewModel.getCoinsVsUsd()
                     },
                     label = "USD"
@@ -70,7 +70,7 @@ fun TopBar(isUsdSelected: MutableState<Boolean>) {
                     selected = !isUsdSelected.value,
                     onClick = {
                         isUsdSelected.value = false
-                        viewModel.clear()
+                        viewModel.clearList()
                         viewModel.getCoinsVsRub()
                     },
                     label = "RUB"

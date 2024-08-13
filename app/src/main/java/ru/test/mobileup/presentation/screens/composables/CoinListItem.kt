@@ -1,5 +1,6 @@
 package ru.test.mobileup.presentation.screens.composables
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.test.mobileup.R
 import ru.test.mobileup.data.dto.Coin
 import ru.test.mobileup.presentation.screens.halfMargin
@@ -30,17 +32,22 @@ import ru.test.mobileup.presentation.util.DataFormatter
 import java.math.BigDecimal
 import java.math.RoundingMode
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @Composable
 fun CoinListItem(
     coin: Coin,
     navController: NavHostController,
     isUsdSelected: MutableState<Boolean>
 ) {
+
     ConstraintLayout(
         Modifier
             .fillMaxWidth()
             .width(400.dp)
             .height(56.dp)
+            .clickable {
+                navController.navigate("MainScreen/${coin.id.toString()}")
+            }
     ) {
         val (logo, name, shortName, price, change) = createRefs()
         AsyncImage(model = coin.image,
@@ -89,8 +96,6 @@ fun CoinListItem(
                 top.linkTo(name.bottom, 3.dp)
                 start.linkTo(logo.end, halfMargin)
             })
-
-
         if (coin.price_change_percentage_24h.toString().startsWith("-")) {
             Text(
                 text = coin.price_change_percentage_24h?.let {

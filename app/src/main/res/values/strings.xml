@@ -2,4 +2,8 @@
     <string name="app_name">MobileUp</string>
     <string name="logo_description">Логотип</string>
     <string name="icon_description">Иконка</string>
+    <string name="back_icon_description">Назад</string>
+    <string name="description">Описание</string>
+    <string name="categories">Категории</string>
+    <string name="no_description">Описания нет</string>
 </resources>

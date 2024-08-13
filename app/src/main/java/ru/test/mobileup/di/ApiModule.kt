@@ -11,6 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import ru.test.mobileup.BuildConfig
 import ru.test.mobileup.data.api.CoinApiService
+import ru.test.mobileup.data.api.DetailedCoinApiService
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -51,4 +52,9 @@ class ApiModule {
     @Provides
     @Singleton
     fun provideCoinApiService(retrofit: Retrofit): CoinApiService = retrofit.create()
+
+    @Provides
+    @Singleton
+    fun provideDetailedCoinApiService(retrofit: Retrofit): DetailedCoinApiService =
+        retrofit.create()
 }

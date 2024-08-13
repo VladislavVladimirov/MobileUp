@@ -9,7 +9,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -23,19 +22,20 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.test.mobileup.R
 import ru.test.mobileup.presentation.ui.theme.OrangeIndicator
-import ru.test.mobileup.presentation.viewmodel.ViewModel
+import ru.test.mobileup.presentation.viewmodel.DetailedCoinsViewModel
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @Composable
-fun ErrorGroup(isUsdSelected: MutableState<Boolean>) {
-    val viewModel: ViewModel = viewModel()
+fun CoinScreenErrorGroup(id: String?) {
+    val viewModel: DetailedCoinsViewModel = viewModel()
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
         val (icon, text, button) = createRefs()
-        Image(painterResource(id = R.drawable.ic_error_title_icon),
+        Image(
+            painterResource(id = R.drawable.ic_error_title_icon),
             contentDescription = stringResource(R.string.icon_description),
             modifier = Modifier.constrainAs(icon) {
                 start.linkTo(parent.start)
@@ -55,11 +55,7 @@ fun ErrorGroup(isUsdSelected: MutableState<Boolean>) {
             })
         IconButton(
             onClick = {
-                if (isUsdSelected.value) {
-                    viewModel.getCoinsVsUsd()
-                } else {
-                    viewModel.getCoinsVsRub()
-                }
+                viewModel.getCoinById(id)
             },
             modifier = Modifier
                 .constrainAs(button) {
@@ -70,13 +66,14 @@ fun ErrorGroup(isUsdSelected: MutableState<Boolean>) {
                 .height(36.dp)
                 .width(175.dp)
                 .background(OrangeIndicator, RoundedCornerShape(4.dp))
+
         ) {
-            Image(
-                painterResource(id = R.drawable.ic_try),
-                contentDescription = stringResource(R.string.icon_description),
-                modifier = Modifier.fillMaxSize(),
+            Text(
+                text = "ПОПРОБОВАТЬ",
+                color = Color.White,
+                fontSize = 16.sp,
+                fontWeight = FontWeight(500)
             )
         }
     }
-
 }

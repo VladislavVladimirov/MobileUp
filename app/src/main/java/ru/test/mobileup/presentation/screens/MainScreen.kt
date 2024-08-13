@@ -15,15 +15,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.test.mobileup.domain.model.CoinModel
 import ru.test.mobileup.domain.model.StateModel
 import ru.test.mobileup.presentation.screens.composables.CoinListItem
-import ru.test.mobileup.presentation.screens.composables.ErrorGroup
+import ru.test.mobileup.presentation.screens.composables.MainScreenErrorGroup
 import ru.test.mobileup.presentation.screens.composables.TopBar
 import ru.test.mobileup.presentation.ui.theme.OrangeIndicator
-import ru.test.mobileup.presentation.viewmodel.ViewModel
+import ru.test.mobileup.presentation.viewmodel.CoinsViewModel
 
 val margin = 16.dp
 val doubleMargin = 32.dp
@@ -31,9 +32,9 @@ val halfMargin = 8.dp
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @Composable
-fun MainScreen(viewModel: ViewModel, navController: NavHostController) {
+fun MainScreen(viewModel: CoinsViewModel = viewModel(), navController: NavHostController) {
     val isUsdSelected = remember { mutableStateOf(true) }
-    val coinsModel: CoinModel by viewModel.data.observeAsState(CoinModel())
+    val coinsModel: CoinModel by viewModel.coins.observeAsState(CoinModel())
     val stateModel: StateModel by viewModel.state.observeAsState(StateModel())
     val coins = coinsModel.coins
     val isLoading = stateModel.loading
@@ -50,7 +51,7 @@ fun MainScreen(viewModel: ViewModel, navController: NavHostController) {
                 CircularProgressIndicator(color = OrangeIndicator)
             } else {
                 if (isError) {
-                    ErrorGroup(isUsdSelected)
+                    MainScreenErrorGroup(isUsdSelected)
                 }
                 if (coins.isNotEmpty()) {
                     LazyColumn(state = listState, contentPadding = innerPadding) {

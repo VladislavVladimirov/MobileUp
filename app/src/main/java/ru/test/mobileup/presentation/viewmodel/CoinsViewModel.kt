@@ -15,13 +15,13 @@ import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @HiltViewModel
-class ViewModel @Inject constructor(
+class CoinsViewModel @Inject constructor(
     private val getCoinsVsRubUseCase: GetCoinsVsRubUseCase,
-    private val getCoinsVsUsdUseCase: GetCoinsVsUsdUseCase
-): ViewModel() {
-    private val _data = MutableLiveData<CoinModel>()
-    val data: LiveData<CoinModel>
-        get() = _data
+    private val getCoinsVsUsdUseCase: GetCoinsVsUsdUseCase,
+) : ViewModel() {
+    private val _coins = MutableLiveData<CoinModel>()
+    val coins: LiveData<CoinModel>
+        get() = _coins
     private val _state = MutableLiveData<StateModel>()
     val state: LiveData<StateModel>
         get() = _state
@@ -30,28 +30,29 @@ class ViewModel @Inject constructor(
         getCoinsVsUsd()
     }
 
-    fun getCoinsVsUsd() = viewModelScope.launch{
+    fun getCoinsVsUsd() = viewModelScope.launch {
         try {
             _state.value = StateModel(loading = true)
             val list = getCoinsVsUsdUseCase.execute()
-            _data.value = CoinModel(coins = list)
+            _coins.value = CoinModel(coins = list)
             _state.value = StateModel(loading = false)
-        } catch (e:Exception){
+        } catch (e: Exception) {
             _state.value = StateModel(error = true)
         }
     }
-    fun getCoinsVsRub() = viewModelScope.launch{
+
+    fun getCoinsVsRub() = viewModelScope.launch {
         try {
             _state.value = StateModel(loading = true)
             val list = getCoinsVsRubUseCase.execute()
-            _data.value = CoinModel(coins = list)
+            _coins.value = CoinModel(coins = list)
             _state.value = StateModel(loading = false)
-        } catch (e:Exception){
+        } catch (e: Exception) {
             _state.value = StateModel(error = true)
         }
     }
-    fun clear() {
-        _data.value = CoinModel()
-    }
 
+    fun clearList() {
+        _coins.value = CoinModel()
+    }
 }
