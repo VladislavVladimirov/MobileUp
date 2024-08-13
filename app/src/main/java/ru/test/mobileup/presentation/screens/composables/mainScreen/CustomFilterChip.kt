@@ -1,4 +1,4 @@
-package ru.test.mobileup.presentation.screens.composables
+package ru.test.mobileup.presentation.screens.composables.mainScreen
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth

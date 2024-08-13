@@ -1,4 +1,4 @@
-package ru.test.mobileup.presentation.screens.composables
+package ru.test.mobileup.presentation.screens.composables.coinScreen
 
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.runtime.Composable
@@ -35,37 +35,24 @@ fun HyperlinkText(
                     fontSize = fontSize,
                     fontWeight = linkTextFontWeight,
                     textDecoration = linkTextDecoration
-                ),
-                start = startIndex,
-                end = endIndex
+                ), start = startIndex, end = endIndex
             )
             addStringAnnotation(
-                tag = "URL",
-                annotation = hyperlinks[index],
-                start = startIndex,
-                end = endIndex
+                tag = "URL", annotation = hyperlinks[index], start = startIndex, end = endIndex
             )
         }
         addStyle(
             style = SpanStyle(
                 fontSize = fontSize
-            ),
-            start = 0,
-            end = fullText.length
+            ), start = 0, end = fullText.length
         )
     }
 
     val uriHandler = LocalUriHandler.current
 
-    ClickableText(
-        modifier = modifier,
-        text = annotatedString,
-        onClick = {
-            annotatedString
-                .getStringAnnotations("URL", it, it)
-                .firstOrNull()?.let { stringAnnotation ->
-                    uriHandler.openUri(stringAnnotation.item)
-                }
-        }
-    )
+    ClickableText(modifier = modifier, text = annotatedString, onClick = {
+        annotatedString.getStringAnnotations("URL", it, it).firstOrNull()?.let { stringAnnotation ->
+                uriHandler.openUri(stringAnnotation.item)
+            }
+    })
 }

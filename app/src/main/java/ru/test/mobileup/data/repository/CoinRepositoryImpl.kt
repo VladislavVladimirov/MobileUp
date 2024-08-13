@@ -12,6 +12,7 @@ import javax.inject.Inject
 class CoinRepositoryImpl @Inject constructor(
     private val apiService: CoinApiService
 ) : CoinRepository {
+
     override suspend fun getCoinsVsUsd(): List<Coin> {
         try {
             val response = apiService.getCoinsVsUsd()

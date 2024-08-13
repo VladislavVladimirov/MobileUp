@@ -1,4 +1,4 @@
-package ru.test.mobileup.presentation.screens.composables
+package ru.test.mobileup.presentation.screens.composables.mainScreen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,11 +19,10 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.test.mobileup.R
 import ru.test.mobileup.data.dto.Coin
-import ru.test.mobileup.presentation.screens.halfMargin
-import ru.test.mobileup.presentation.screens.margin
+import ru.test.mobileup.presentation.screens.halfSpace
+import ru.test.mobileup.presentation.screens.space
 import ru.test.mobileup.presentation.ui.theme.Green
 import ru.test.mobileup.presentation.ui.theme.GreyCoinName
 import ru.test.mobileup.presentation.ui.theme.GreyShortName
@@ -32,14 +31,12 @@ import ru.test.mobileup.presentation.util.DataFormatter
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @Composable
 fun CoinListItem(
     coin: Coin,
     navController: NavHostController,
     isUsdSelected: MutableState<Boolean>
 ) {
-
     ConstraintLayout(
         Modifier
             .fillMaxWidth()
@@ -50,6 +47,7 @@ fun CoinListItem(
             }
     ) {
         val (logo, name, shortName, price, change) = createRefs()
+
         AsyncImage(model = coin.image,
             contentDescription = stringResource(R.string.logo_description),
             contentScale = ContentScale.Crop,
@@ -57,9 +55,9 @@ fun CoinListItem(
                 .size(40.dp)
                 .clip(CircleShape)
                 .constrainAs(logo) {
-                    top.linkTo(parent.top, halfMargin)
-                    start.linkTo(parent.start, margin)
-                    bottom.linkTo(parent.bottom, halfMargin)
+                    top.linkTo(parent.top, halfSpace)
+                    start.linkTo(parent.start, space)
+                    bottom.linkTo(parent.bottom, halfSpace)
                 })
         Text(
             text = DataFormatter.ellipsize(coin.name.toString()),
@@ -67,24 +65,19 @@ fun CoinListItem(
             fontWeight = FontWeight(500),
             fontSize = 16.sp,
             modifier = Modifier.constrainAs(name) {
-                top.linkTo(parent.top, halfMargin)
-                start.linkTo(logo.end, halfMargin)
+                top.linkTo(parent.top, halfSpace)
+                start.linkTo(logo.end, halfSpace)
             })
         if (coin.current_price != null) {
             Text(
-                text = if (isUsdSelected.value) DataFormatter.formatPrice(
-                    coin.current_price,
-                    "$"
-                ) else DataFormatter.formatPrice(
-                    coin.current_price,
-                    "₽ "
-                ),
+                text = if (isUsdSelected.value) DataFormatter.formatPrice(coin.current_price, "$")
+                else DataFormatter.formatPrice(coin.current_price, "₽ "),
                 color = GreyCoinName,
                 fontWeight = FontWeight(600),
                 fontSize = 16.sp,
                 modifier = Modifier.constrainAs(price) {
-                    top.linkTo(parent.top, halfMargin)
-                    end.linkTo(parent.end, margin)
+                    top.linkTo(parent.top, halfSpace)
+                    end.linkTo(parent.end, space)
                 })
         }
         Text(
@@ -94,7 +87,7 @@ fun CoinListItem(
             fontSize = 14.sp,
             modifier = Modifier.constrainAs(shortName) {
                 top.linkTo(name.bottom, 3.dp)
-                start.linkTo(logo.end, halfMargin)
+                start.linkTo(logo.end, halfSpace)
             })
         if (coin.price_change_percentage_24h.toString().startsWith("-")) {
             Text(
@@ -109,7 +102,7 @@ fun CoinListItem(
                 fontSize = 14.sp,
                 modifier = Modifier.constrainAs(change) {
                     top.linkTo(price.bottom, 4.dp)
-                    end.linkTo(parent.end, margin)
+                    end.linkTo(parent.end, space)
                 })
         } else {
             Text(
@@ -124,7 +117,7 @@ fun CoinListItem(
                 fontSize = 14.sp,
                 modifier = Modifier.constrainAs(change) {
                     top.linkTo(price.bottom, 4.dp)
-                    end.linkTo(parent.end, margin)
+                    end.linkTo(parent.end, space)
                 })
         }
     }

@@ -9,8 +9,7 @@ import ru.test.mobileup.domain.repository.DetailedCoinRepository
 import java.io.IOException
 import javax.inject.Inject
 
-class DetailedCoinRepositoryImpl @Inject constructor(private val apiService: DetailedCoinApiService) :
-    DetailedCoinRepository {
+class DetailedCoinRepositoryImpl @Inject constructor(private val apiService: DetailedCoinApiService) : DetailedCoinRepository {
     override suspend fun getCoinById(id: String?): DetailedCoin {
         try {
             val response = apiService.getCoinById(id)

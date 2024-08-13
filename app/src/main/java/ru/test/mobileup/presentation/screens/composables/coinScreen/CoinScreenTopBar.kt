@@ -1,4 +1,4 @@
-package ru.test.mobileup.presentation.screens.composables
+package ru.test.mobileup.presentation.screens.composables.coinScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,14 +23,15 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import ru.test.mobileup.R
 import ru.test.mobileup.data.dto.DetailedCoin
-import ru.test.mobileup.presentation.screens.doubleMargin
-import ru.test.mobileup.presentation.screens.margin
+import ru.test.mobileup.presentation.screens.doubleSpace
+import ru.test.mobileup.presentation.screens.space
 import ru.test.mobileup.presentation.ui.theme.DarkGrey
 
 
 @Composable
 fun CoinScreenTopBar(coin: DetailedCoin?, navController: NavHostController) {
     val padding = WindowInsets.statusBars.asPaddingValues()
+
     Surface(shadowElevation = 3.dp) {
         Row(
             Modifier
@@ -44,24 +45,27 @@ fun CoinScreenTopBar(coin: DetailedCoin?, navController: NavHostController) {
                 painter = painterResource(id = R.drawable.ic_back),
                 modifier = Modifier
                     .padding(
-                        start = margin,
-                        end = doubleMargin,
-                        top = margin,
-                        bottom = margin
+                        start = space,
+                        end = doubleSpace,
+                        top = space,
+                        bottom = space
                     )
                     .clickable {
                         navController.popBackStack()
                     })
-            Text(
-                text = coin?.name.toString(),
-                color = DarkGrey,
-                fontSize = 20.sp,
-                fontWeight = FontWeight(500),
-                modifier = Modifier.padding(
-                    top = margin,
-                    bottom = margin
+            if (coin?.name != null) {
+                Text(
+                    text = coin.name.toString(),
+                    color = DarkGrey,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight(500),
+                    modifier = Modifier.padding(
+                        top = space,
+                        bottom = space
+                    )
                 )
-            )
+            }
+
         }
     }
 }

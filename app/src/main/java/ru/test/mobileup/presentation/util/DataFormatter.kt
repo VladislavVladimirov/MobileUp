@@ -4,7 +4,6 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 object DataFormatter {
-
     fun formatPrice(price: Double, currency: String): String {
         if (price < 1.0) {
             val formattedPrice = BigDecimal(price).setScale(4, RoundingMode.HALF_UP).toString()

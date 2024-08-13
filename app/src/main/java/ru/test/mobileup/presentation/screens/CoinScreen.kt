@@ -33,13 +33,12 @@ import coil.compose.AsyncImage
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.test.mobileup.R
 import ru.test.mobileup.domain.model.StateModel
-import ru.test.mobileup.presentation.screens.composables.CoinScreenErrorGroup
-import ru.test.mobileup.presentation.screens.composables.CoinScreenTopBar
-import ru.test.mobileup.presentation.screens.composables.HyperlinkText
+import ru.test.mobileup.presentation.screens.composables.coinScreen.CoinScreenErrorGroup
+import ru.test.mobileup.presentation.screens.composables.coinScreen.CoinScreenTopBar
+import ru.test.mobileup.presentation.screens.composables.coinScreen.HyperlinkText
 import ru.test.mobileup.presentation.ui.theme.OrangeIndicator
 import ru.test.mobileup.presentation.util.DataFormatter
 import ru.test.mobileup.presentation.viewmodel.DetailedCoinsViewModel
-
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @Composable
@@ -56,6 +55,7 @@ fun CoinScreen(
     val formattedText = DataFormatter.removeLinks(coin?.description?.en.toString())
     val linksMap = DataFormatter.extractLinks(coinText)
     val scrollState = rememberScrollState()
+
     LaunchedEffect(id) {
         viewModel.getCoinById(id)
     }
@@ -101,8 +101,8 @@ fun CoinScreen(
                         fontSize = 20.sp,
                         color = Color.Black,
                         modifier = Modifier.constrainAs(descriptionHeader) {
-                            start.linkTo(parent.start, margin)
-                            top.linkTo(logo.bottom, margin)
+                            start.linkTo(parent.start, space)
+                            top.linkTo(logo.bottom, space)
                         }
                     )
                     if (coinText.isNotEmpty()) {
@@ -111,9 +111,9 @@ fun CoinScreen(
                                 .constrainAs(description) {
                                     start.linkTo(parent.start)
                                     end.linkTo(parent.end)
-                                    top.linkTo(descriptionHeader.bottom, halfMargin)
+                                    top.linkTo(descriptionHeader.bottom, halfSpace)
                                 }
-                                .padding(horizontal = margin),
+                                .padding(horizontal = space),
                             fullText = formattedText,
                             linkText = linksMap.keys.toList(),
                             hyperlinks = linksMap.values.toList(),
@@ -125,8 +125,8 @@ fun CoinScreen(
                             fontSize = 20.sp,
                             color = Color.Black,
                             modifier = Modifier.constrainAs(categoriesHeader) {
-                                start.linkTo(parent.start, margin)
-                                top.linkTo(description.bottom, margin)
+                                start.linkTo(parent.start, space)
+                                top.linkTo(description.bottom, space)
                             }
                         )
                         Text(
@@ -137,12 +137,11 @@ fun CoinScreen(
                             modifier = Modifier
                                 .constrainAs(categories) {
                                     start.linkTo(parent.start)
-                                    top.linkTo(categoriesHeader.bottom, halfMargin)
+                                    top.linkTo(categoriesHeader.bottom, halfSpace)
                                     end.linkTo(parent.end)
                                 }
-                                .padding(start = margin, end = 18.dp)
+                                .padding(start = space, end = 18.dp)
                         )
-
                     } else {
                         Text(
                             stringResource(R.string.no_description),
@@ -151,17 +150,17 @@ fun CoinScreen(
                             modifier = Modifier
                                 .constrainAs(description) {
                                     start.linkTo(parent.start)
-                                    top.linkTo(descriptionHeader.bottom, halfMargin)
+                                    top.linkTo(descriptionHeader.bottom, halfSpace)
                                 }
-                                .padding(horizontal = margin))
+                                .padding(horizontal = space))
                         Text(
                             text = stringResource(R.string.categories),
                             fontWeight = FontWeight(500),
                             fontSize = 20.sp,
                             color = Color.Black,
                             modifier = Modifier.constrainAs(categoriesHeader) {
-                                start.linkTo(parent.start, margin)
-                                top.linkTo(description.bottom, margin)
+                                start.linkTo(parent.start, space)
+                                top.linkTo(description.bottom, space)
                             }
                         )
                         Text(
@@ -172,10 +171,10 @@ fun CoinScreen(
                             modifier = Modifier
                                 .constrainAs(categories) {
                                     start.linkTo(parent.start)
-                                    top.linkTo(categoriesHeader.bottom, halfMargin)
+                                    top.linkTo(categoriesHeader.bottom, halfSpace)
                                     end.linkTo(parent.end)
                                 }
-                                .padding(start = margin, end = 18.dp)
+                                .padding(start = space, end = 18.dp)
                         )
                     }
                 }

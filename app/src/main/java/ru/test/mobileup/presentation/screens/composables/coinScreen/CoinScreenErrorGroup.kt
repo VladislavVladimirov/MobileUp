@@ -1,4 +1,4 @@
-package ru.test.mobileup.presentation.screens.composables
+package ru.test.mobileup.presentation.screens.composables.coinScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -28,12 +28,14 @@ import ru.test.mobileup.presentation.viewmodel.DetailedCoinsViewModel
 @Composable
 fun CoinScreenErrorGroup(id: String?) {
     val viewModel: DetailedCoinsViewModel = viewModel()
+
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
         val (icon, text, button) = createRefs()
+
         Image(
             painterResource(id = R.drawable.ic_error_title_icon),
             contentDescription = stringResource(R.string.icon_description),
@@ -43,7 +45,8 @@ fun CoinScreenErrorGroup(id: String?) {
                 top.linkTo(parent.top)
                 bottom.linkTo(parent.bottom)
             })
-        Text(text = "Произошла какая-то ошибка :(\nПопробуем снова?",
+        Text(
+            text = "Произошла какая-то ошибка :(\nПопробуем снова?",
             color = Color.Black,
             textAlign = TextAlign.Center,
             fontWeight = FontWeight(400),
