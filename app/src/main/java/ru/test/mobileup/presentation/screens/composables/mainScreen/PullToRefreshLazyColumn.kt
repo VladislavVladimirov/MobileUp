@@ -15,6 +15,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.navigation.NavHostController
 import ru.test.mobileup.data.dto.Coin
@@ -50,7 +51,9 @@ fun PullToRefreshLazyColumn(
         }
         PullToRefreshContainer(
             state = pullToRefreshState,
-            modifier = Modifier.align(Alignment.TopCenter).padding(contentPaddingValues)
+            modifier = Modifier.align(Alignment.TopCenter).padding(contentPaddingValues),
+            contentColor = Color.Black,
+            containerColor = Color.White
         )
     }
 }
